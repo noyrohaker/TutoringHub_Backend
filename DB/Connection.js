@@ -1,13 +1,17 @@
 const mongoose = require("mongoose");
 const URI =
-  "mongodb+srv://tutoring_hub:colman@tutoringhabcluster.ik3yp.mongodb.net/<dbname>?retryWrites=true&w=majority";
+  "mongodb+srv://tutoring_hub:colman@tutoringhabcluster.ik3yp.mongodb.net/tutoringHab?retryWrites=true&w=majority";
 
 const connectDB = async () => {
-  await mongoose.connect(URI, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  });
-  console.log("db connected");
+  try {
+    await mongoose.connect(URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("DB Connection started.");
+  } catch (e) {
+    console.error(`an error accourd: ${e}`);
+  }
 };
 
 module.exports = connectDB;
