@@ -2,9 +2,11 @@
   "name": "TutoringHub_Backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
-    "server": "nodemon server.js"
+    "start": "node -r ts-node/register ./src/server.ts",
+    "start:watch": "nodemon",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -18,10 +20,44 @@
   },
   "homepage": "https://github.com/adiHahamov/TutoringHub_Backend#readme",
   "dependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/cookie-parser": "^1.4.1",
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.0",
+    "@types/mongoose": "^5.5.37",
+    "@types/swagger-jsdoc": "^3.0.2",
+    "@types/swagger-ui-express": "^4.1.1",
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.11.16"
+    "install": "^0.13.0",
+    "mongoose": "5.8.3",
+    "npm": "^6.14.2",
+    "swagger-jsdoc": "^3.5.0",
+    "swagger-ui-express": "^4.1.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "@types/node": "^12.7.0",
+    "eslint": "^6.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "nodemon": "^1.19.1",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "npm start",
+    "ext": "ts"
   }
 }
