@@ -3,7 +3,7 @@ import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
 import { IController } from "./shared/IController";
 import { connect } from "mongoose";
-import * as http from "http";
+import * as cors from "cors";
 
 export class App {
   app: express.Application;
@@ -19,14 +19,14 @@ export class App {
     this.initializeControllers(controllers);
   }
 
-  public async listen(server: http.Server) {
+  public async listen() {
     try {
       await connect(process.env.connectString, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
       console.log("mongodb started.");
-      server.listen(this.port, () => {
+      this.app.listen(this.port, () => {
         console.log(`App listening on the port ${this.port}`);
       });
     } catch (e) {
@@ -37,6 +37,7 @@ export class App {
   private initializeMiddlewares() {
     this.app.use(bodyParser.json());
     this.app.use(cookieParser());
+    this.app.use(cors());
   }
 
   private initializeControllers(controllers: Array<IController>) {
