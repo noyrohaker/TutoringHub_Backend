@@ -24,7 +24,7 @@ export class LessonsDAL {
     this.lessonDataAccess.update(lesson);
   }
 
-  async findByName(name: String) {
-    return await this.lessonDataAccess.filter({ name: name });
+  async findBySubject(subject: String) {
+    return await this.lessonDataAccess.filter({ subject: subject });
   }
 }

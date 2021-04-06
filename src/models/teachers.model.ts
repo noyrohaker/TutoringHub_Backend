@@ -23,42 +23,32 @@ export enum Area {
 export interface ITeacher extends Document {
   _id: string;
   name: string;
-  gender: Gender;
-  phone: number;
+  score: number;
   education: string;
   tutoringSubjects: Array<string>;
-  tutoringAreas: Array<Area>;
-  score: Score;
-  profilePicture: string;
-  lessons: Array<Number>;
+  availability: string;
+  areas: Array<string>;
 }
 
 export type ITeacherSchema = ITeacher & SchemaDefinition;
-export interface ITeacherModel extends ITeacher {}
+export interface ITeacherModel extends ITeacher { }
 
 export const teacherSchema = new Schema<ITeacherSchema>(
   {
     name: String,
-    gender: Number,
-    phone: Number,
+    availability: String,
     education: String,
     tutoringSubjects: [
       {
         type: String,
       },
     ],
-    tutoringAreas: [
+    areas: [
       {
         type: Number,
       },
     ],
-    score: Number,
-    profilePicture: String,
-    lessons: [
-      {
-        type: Number,
-      },
-    ],
+    score: Number
   },
 
   { versionKey: false }
@@ -67,5 +57,5 @@ export const teacherSchema = new Schema<ITeacherSchema>(
 export const Teacher: Model<ITeacherModel> = model<ITeacherModel>(
   "Teacher",
   teacherSchema,
-  "Teachers"
+  "teachers"
 );

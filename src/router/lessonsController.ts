@@ -26,8 +26,8 @@ export class LessonsController implements IController {
       res.sendStatus(200);
     });
 
-    this.router.get("/name", async (req, res) => {
-      const lessons = await this.lessonBl.findByName(req.params.name);
+    this.router.get("/subject", async (req, res) => {
+      const lessons = await this.lessonBl.findBySubject(req.params.subject);
       res.send(lessons);
     });
 
