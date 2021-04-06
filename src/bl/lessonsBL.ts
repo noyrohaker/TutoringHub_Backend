@@ -16,8 +16,8 @@ export class LessonsBL {
     return await this.lessonDataAccess.findById(id);
   }
 
-  async findByName(name: string) {
-    return await this.lessonDataAccess.findByName(name);
+  async findBySubject(subject: string) {
+    return await this.lessonDataAccess.findBySubject(subject);
   }
 
   async findAll(): Promise<Array<ILesson>> {
