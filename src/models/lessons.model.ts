@@ -1,12 +1,13 @@
 import { Document, Schema, model, SchemaDefinition, Model } from "mongoose";
 
 export interface ILesson extends Document {
-    _id: string;
-    subject: string;
-    city?: string;
-    minAgeRange?: number;
-    maxAgeRange?: number;
-    classType?: string;
+  _id: string;
+  subject: string;
+  city?: string;
+  minAgeRange?: number;
+  maxAgeRange?: number;
+  classType?: string;
+  students?: Array<string>;
 }
 
 export type ILessonSchema = ILesson & SchemaDefinition;
@@ -18,13 +19,14 @@ export const lessonSchema = new Schema<ILessonSchema>(
     city: String,
     minAgeRange: Number,
     maxAgeRange: Number,
-    classType: String
+    classType: String,
+    students: [
+      {
+        type: String,
+      },
+    ],
   },
   { versionKey: false }
 );
 
-export const Lesson: Model<ILessonModel> = model<ILessonModel>(
-  "Lesson",
-  lessonSchema,
-  "lessons"
-);
+export const Lesson: Model<ILessonModel> = model<ILessonModel>("Lesson", lessonSchema, "lessons");
