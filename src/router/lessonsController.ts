@@ -41,5 +41,15 @@ export class LessonsController implements IController {
       this.lessonBl.update(lesson);
       res.sendStatus(200);
     });
+
+    this.router.get("/statistics/:id", async (req, res) => {
+      const lessons = await this.lessonBl.mapReduce(req.params.id);
+      var x = 6;
+      res.send();
+    });
+
+    this.router.delete("/:id", async (req, res) => {
+      res.sendStatus(200);
+    });
   }
 }

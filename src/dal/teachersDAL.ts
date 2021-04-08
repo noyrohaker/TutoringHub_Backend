@@ -12,7 +12,7 @@ export class TeachersDAL {
     this.teacherDataAccess.create(<ITeacherModel>teacher);
   }
 
-  async findById(id: string) {
+  async findById(id: String) {
     return await this.teacherDataAccess.findById(id);
   }
 

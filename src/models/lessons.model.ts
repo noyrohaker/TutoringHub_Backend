@@ -7,6 +7,7 @@ export interface ILesson extends Document {
   minAgeRange?: number;
   maxAgeRange?: number;
   classType?: string;
+  teacherId?: string;
   students?: Array<string>;
 }
 
@@ -20,6 +21,7 @@ export const lessonSchema = new Schema<ILessonSchema>(
     minAgeRange: Number,
     maxAgeRange: Number,
     classType: String,
+    teacherId: String,
     students: [
       {
         type: String,

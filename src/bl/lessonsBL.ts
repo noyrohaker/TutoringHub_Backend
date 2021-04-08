@@ -27,4 +27,12 @@ export class LessonsBL {
   async update(document: ILesson) {
     await this.lessonDataAccess.update(document);
   }
+
+  async delete(id: String) {
+    await this.lessonDataAccess.delete(id);
+  }
+
+  async mapReduce(teacher: String) {
+    await this.lessonDataAccess.mapReduce(teacher);
+  }
 }
