@@ -16,6 +16,10 @@ export class TeachersDAL {
     return await this.teacherDataAccess.findById(id);
   }
 
+  async findByFirebaseId(firebaseId: string) {
+    return await this.teacherDataAccess.filter({ firebaseId: firebaseId });
+  }
+
   async findAll() {
     return await this.teacherDataAccess.findAll();
   }

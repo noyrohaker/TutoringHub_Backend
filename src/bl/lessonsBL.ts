@@ -16,6 +16,10 @@ export class LessonsBL {
     return await this.lessonDataAccess.findById(id);
   }
 
+  async findByTeacherId(teacherId: string) {
+    return await this.lessonDataAccess.findByTeacherId(teacherId);
+  }
+
   async findBySubject(subject: string) {
     return await this.lessonDataAccess.findBySubject(subject);
   }

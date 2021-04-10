@@ -20,6 +20,10 @@ export class LessonsDAL {
     return await this.lessonDataAccess.findById(id);
   }
 
+  async findByTeacherId(teacherId: string) {
+    return await this.lessonDataAccess.filter({ teacherId: teacherId });
+  }
+
   async findAll() {
     return await this.lessonDataAccess.findAll();
   }
