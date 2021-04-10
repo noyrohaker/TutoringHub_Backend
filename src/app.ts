@@ -4,16 +4,19 @@ import * as cookieParser from "cookie-parser";
 import { IController } from "./shared/IController";
 import { connect } from "mongoose";
 import * as cors from "cors";
+import * as morgan from "morgan";
 
 export class App {
   app: express.Application;
   port: number;
   router: express.Router;
 
+
   constructor(controllers: Array<IController>, port: number) {
     this.app = express();
     this.port = port;
     this.router = express.Router();
+    
 
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
@@ -38,6 +41,7 @@ export class App {
     this.app.use(bodyParser.json());
     this.app.use(cookieParser());
     this.app.use(cors());
+    this.app.use(morgan("combined"));
   }
 
   private initializeControllers(controllers: Array<IController>) {

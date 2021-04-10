@@ -24,11 +24,14 @@ export interface ITeacher extends Document {
   _id: string;
   name: string;
   score: number;
+  mail: string;
+  gender: Gender;
   education: string;
   tutoringSubjects: Array<string>;
   availability: string;
   areas: Array<string>;
 }
+
 
 export type ITeacherSchema = ITeacher & SchemaDefinition;
 export interface ITeacherModel extends ITeacher { }
@@ -38,6 +41,8 @@ export const teacherSchema = new Schema<ITeacherSchema>(
     name: String,
     availability: String,
     education: String,
+    mail: String,
+    gender: Number,
     tutoringSubjects: [
       {
         type: String,

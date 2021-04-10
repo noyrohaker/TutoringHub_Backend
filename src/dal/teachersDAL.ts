@@ -12,6 +12,10 @@ export class TeachersDAL {
     this.teacherDataAccess.create(<ITeacherModel>teacher);
   }
 
+  async findByFieldValue(field: string, value: string) {
+    return await this.teacherDataAccess.filter({[field]: value});
+  }
+
   async findById(id: string) {
     return await this.teacherDataAccess.findById(id);
   }

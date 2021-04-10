@@ -1,6 +1,6 @@
 import { Document, Model, Types } from "mongoose";
 
-export interface IBaseDataAccess {}
+export interface IBaseDataAccess { }
 
 export class BaseDataAccess<T extends Document> implements IBaseDataAccess {
   private model: Model<T>;
@@ -27,6 +27,10 @@ export class BaseDataAccess<T extends Document> implements IBaseDataAccess {
 
   public async update(document: T) {
     return await this.model.updateOne({ _id: document._id }, document);
+  }
+
+  public async deleteItemFromArray(id: string, updateParams: any) {
+    return await this.model.updateOne({ firebaseId: id }, updateParams);
   }
 
   public async filter(filter: any) {
