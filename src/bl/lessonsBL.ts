@@ -16,6 +16,10 @@ export class LessonsBL {
     return await this.lessonDataAccess.findById(id);
   }
 
+  async findByTeacherId(teacherId: string) {
+    return await this.lessonDataAccess.findByTeacherId(teacherId);
+  }
+
   async findBySubject(subject: string) {
     return await this.lessonDataAccess.findBySubject(subject);
   }
@@ -26,5 +30,13 @@ export class LessonsBL {
 
   async update(document: ILesson) {
     await this.lessonDataAccess.update(document);
+  }
+
+  async delete(id: String) {
+    await this.lessonDataAccess.delete(id);
+  }
+
+  async mapReduce(teacher: String) {
+    await this.lessonDataAccess.mapReduce(teacher);
   }
 }

@@ -26,10 +26,10 @@ export class TeachersController implements IController {
       res.sendStatus(200);
     });
 
-    this.router.get("/name", async (req, res) => {
-      const teachers = await this.teacherBL.findByName(req.params.name);
-      res.send(teachers);
-    });
+    // this.router.get("/name", async (req, res) => {
+    //   const teachers = await this.teacherBL.findByName(req.params.name);
+    //   res.send(teachers);
+    // });
 
     this.router.get("/:id", async (req, res) => {
       const teachers = await this.teacherBL.findById(req.params.id);
@@ -41,6 +41,10 @@ export class TeachersController implements IController {
       res.send(teachers);
     });
 
+    this.router.get("/firebaseId/:firebaseId", async (req, res) => {
+      const teachers = await this.teacherBL.findByFirebaseId(req.params.firebaseId);
+      res.send(teachers);
+    });
 
     this.router.put("/", async (req, res) => {
       const teacher: ITeacher = req.body;

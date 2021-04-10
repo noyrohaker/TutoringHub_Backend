@@ -1,3 +1,4 @@
+import { ILesson } from './lessons.model';
 import { Document, Schema, model, SchemaDefinition, Model } from "mongoose";
 
 export enum Gender {
@@ -23,13 +24,14 @@ export enum Area {
 export interface ITeacher extends Document {
   _id: string;
   name: string;
-  score: number;
   mail: string;
-  gender: Gender;
-  education: string;
-  tutoringSubjects: Array<string>;
-  availability: string;
-  areas: Array<string>;
+  gender?: Gender;
+  score?: Score;
+  education?: string;
+  tutoringSubjects?: Array<string>;
+  availability?: boolean;
+  areas?: Array<Area>;
+  firebaseId?: string;
 }
 
 
@@ -53,7 +55,8 @@ export const teacherSchema = new Schema<ITeacherSchema>(
         type: Number,
       },
     ],
-    score: Number
+    score: Number,
+    firebaseId: String,
   },
 
   { versionKey: false }
