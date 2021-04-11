@@ -1,12 +1,18 @@
 import { Document, Schema, model, SchemaDefinition, Model } from "mongoose";
 
+export enum ClassType {
+  Frontal = 0,
+  Teachers_Home = 1,
+  Students_Home = 2,
+}
+
 export interface ILesson extends Document {
   _id: string;
   subject: string;
   city?: string;
   minAgeRange?: number;
   maxAgeRange?: number;
-  classType?: string;
+  classType?: ClassType;
   teacherId?: string;
   students?: Array<string>;
 }
@@ -20,7 +26,7 @@ export const lessonSchema = new Schema<ILessonSchema>(
     city: String,
     minAgeRange: Number,
     maxAgeRange: Number,
-    classType: String,
+    classType: Number,
     teacherId: String,
     students: [
       {
@@ -31,4 +37,8 @@ export const lessonSchema = new Schema<ILessonSchema>(
   { versionKey: false }
 );
 
-export const Lesson: Model<ILessonModel> = model<ILessonModel>("Lesson", lessonSchema, "lessons");
+export const Lesson: Model<ILessonModel> = model<ILessonModel>(
+  "Lesson",
+  lessonSchema,
+  "lessons"
+);
