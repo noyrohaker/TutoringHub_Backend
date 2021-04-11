@@ -55,6 +55,7 @@ export class LessonsController implements IController {
     });
 
     this.router.delete("/:id", async (req, res) => {
+      this.lessonBl.delete(req.params.id);
       res.sendStatus(200);
     });
   }
