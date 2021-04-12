@@ -31,10 +31,12 @@ io.sockets.on("connection", (socket) => {
   if (interval) {
     clearInterval(interval);
   }
-  //600000 is 10 minutes
   interval = setInterval(() => io.sockets.emit("FromAPI", ConnectedUsers.length), 1000);
   io.sockets.on("disconnect", () => {
     console.log(`Client disconnected [id=${socket.id}]`);
+    ConnectedUsers = ConnectedUsers.filter((connectedUser) => {
+      connectedUser != socket.id;
+    });
     clearInterval(interval);
   });
 });
