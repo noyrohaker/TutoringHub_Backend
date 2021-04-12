@@ -11,7 +11,7 @@ export class BaseDataAccess<T extends Document> implements IBaseDataAccess {
   }
 
   public async create(document: T) {
-    this.model.create(document);
+    return await this.model.create(document);
   }
 
   public async findById(id: String) {
@@ -23,7 +23,7 @@ export class BaseDataAccess<T extends Document> implements IBaseDataAccess {
   }
 
   public async delete(id: String) {
-    return await this.model.deleteOne(id);
+    return await this.model.deleteOne({ _id: id });
   }
 
   public async update(document: T) {

@@ -22,8 +22,8 @@ export class TeachersController implements IController {
 
     this.router.post("/", async (req, res) => {
       const teacher: ITeacher = req.body;
-      this.teacherBL.create(teacher);
-      res.sendStatus(200);
+      const createdTeacher = await this.teacherBL.create(teacher);
+      res.send(createdTeacher).status(200);
     });
 
     // this.router.get("/name", async (req, res) => {
