@@ -7,7 +7,8 @@ import { config } from "dotenv";
 import { Server } from "socket.io";
 import * as http from "http";
 
-var ConnectedUsers: string[] = [];
+// var ConnectedUsers: string[] = [];
+var ConnectedUsers: number = 0;
 let interval;
 
 const app = new App([new LessonsController(), new StudentsController(), new TeachersController()], 5001);
@@ -24,19 +25,21 @@ export const io = new Server(server, {
 
 //Manage sockets for send data to client
 io.sockets.on("connection", (socket) => {
-  ConnectedUsers.push(socket);
-
+  // ConnectedUsers.push(socket);
+  ConnectedUsers++;
   console.log(`Client connected [id=${socket.id}]`);
 
   if (interval) {
     clearInterval(interval);
   }
-  interval = setInterval(() => io.sockets.emit("FromAPI", ConnectedUsers.length), 1000);
-  io.sockets.on("disconnect", () => {
+  interval = setInterval(() => io.sockets.emit("FromAPI", ConnectedUsers), 1000);
+
+  socket.on("disconnect", (reason) => {
     console.log(`Client disconnected [id=${socket.id}]`);
-    ConnectedUsers = ConnectedUsers.filter((connectedUser) => {
-      connectedUser != socket.id;
-    });
+    // ConnectedUsers--;
+    // ConnectedUsers = ConnectedUsers.filter((connectedUser) => {
+    //   connectedUser != socket.id;
+    // });
     clearInterval(interval);
   });
 });
