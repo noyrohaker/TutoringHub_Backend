@@ -8,6 +8,10 @@ export class TeachersBL {
     this.teachersDataAccess = new TeachersDAL();
   }
 
+  async findByLessonId(field: string, value: string) {
+    return await this.teachersDataAccess.findByFieldValue(field, value);
+  }
+
   async create(document: ITeacher) {
     return await this.teachersDataAccess.create(document);
   }

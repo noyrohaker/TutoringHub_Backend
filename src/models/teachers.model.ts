@@ -24,6 +24,7 @@ export enum Area {
 export interface ITeacher extends Document {
   _id: string;
   name: string;
+  mail: string;
   gender?: Gender;
   score?: Score;
   education?: string;
@@ -33,6 +34,7 @@ export interface ITeacher extends Document {
   firebaseId?: string;
 }
 
+
 export type ITeacherSchema = ITeacher & SchemaDefinition;
 export interface ITeacherModel extends ITeacher { }
 
@@ -41,6 +43,8 @@ export const teacherSchema = new Schema<ITeacherSchema>(
     name: String,
     availability: String,
     education: String,
+    mail: String,
+    gender: Number,
     tutoringSubjects: [
       {
         type: String,
