@@ -43,6 +43,8 @@ export class TeachersController implements IController {
 
     this.router.put("/", async (req, res) => {
       const teacher: ITeacher = req.body;
+      teacher._id = teacher.id;
+
       this.teacherBL.update(teacher);
       res.sendStatus(200);
     });
