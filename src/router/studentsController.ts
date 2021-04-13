@@ -23,6 +23,12 @@ export class StudentsController implements IController {
     this.router.post("/", async (req, res) => {
       const student: IStudent = req.body;
       this.studentBl.create(student);
+      res.send(student);
+    });
+
+    this.router.post("/deleteLesson", async (req, res) => {
+      const {studentId,lessonId} = req.body;
+      await this.studentBl.deleteUserClassById(studentId, lessonId);
       res.sendStatus(200);
     });
 
@@ -33,6 +39,12 @@ export class StudentsController implements IController {
 
     this.router.get("/:id", async (req, res) => {
       const students = await this.studentBl.findById(req.params.id);
+      res.send(students);
+    });
+
+    this.router.get("/lessons/:id", async (req, res) => {
+      const students = await this.studentBl.findById(req.params.id);
+      await this.studentBl.findById(req.params.id);
       res.send(students);
     });
 

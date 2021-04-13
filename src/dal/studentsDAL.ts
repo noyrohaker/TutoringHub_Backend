@@ -8,12 +8,16 @@ export class StudentsDAL {
     this.studentDataAccess = new BaseDataAccess(Student);
   }
 
+  async deleteUserClassById(studentId: string, lessonId: string) {
+    return await this.studentDataAccess.deleteItemFromArray(studentId, { $pull: { lessons: lessonId } });
+  }
+
   async create(student: IStudent) {
     this.studentDataAccess.create(<IStudentModel>student);
   }
 
   async findById(id: string) {
-    return await this.studentDataAccess.findById(id);
+    return await this.studentDataAccess.filter({ firebaseId: id });
   }
 
   async findAll() {

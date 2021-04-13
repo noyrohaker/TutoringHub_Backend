@@ -12,6 +12,10 @@ export class StudentsBL {
     return await this.studentsDataAccess.create(document);
   }
 
+  async deleteUserClassById(studentId: string, lessonId: string) {
+    return await this.studentsDataAccess.deleteUserClassById(studentId, lessonId);
+  }
+
   async findById(id: string) {
     return await this.studentsDataAccess.findById(id);
   }
