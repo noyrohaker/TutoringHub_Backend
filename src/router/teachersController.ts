@@ -51,7 +51,7 @@ export class TeachersController implements IController {
       teacher._id = teacher.id;
 
       this.teacherBL.update(teacher);
-      res.sendStatus(200);
+      res.status(200).send(teacher);
     });
   }
 }

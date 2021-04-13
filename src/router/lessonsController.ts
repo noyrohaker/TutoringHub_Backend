@@ -36,7 +36,6 @@ export class LessonsController implements IController {
       res.send(lessons);
     });
 
-
     this.router.get("/:id", async (req, res) => {
       const lessons = await this.lessonBl.findById(req.params.id);
       res.send(lessons);
