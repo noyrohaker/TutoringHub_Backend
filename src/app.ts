@@ -5,6 +5,7 @@ import { IController } from "./shared/IController";
 import { connect } from "mongoose";
 import * as cors from "cors";
 import * as morgan from "morgan";
+import * as http from "http";
 
 export class App {
   app: express.Application;
@@ -22,14 +23,14 @@ export class App {
     this.initializeControllers(controllers);
   }
 
-  public async listen() {
+  public async listen(server: http.Server) {
     try {
       await connect(process.env.connectString, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
       console.log("mongodb started.");
-      this.app.listen(this.port, () => {
+      server.listen(this.port, () => {
         console.log(`App listening on the port ${this.port}`);
       });
     } catch (e) {

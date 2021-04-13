@@ -9,7 +9,7 @@ export class TeachersDAL {
   }
 
   async create(teacher: ITeacher) {
-    this.teacherDataAccess.create(<ITeacherModel>teacher);
+    return await this.teacherDataAccess.create(<ITeacherModel>teacher);
   }
 
   async findByFieldValue(field: string, value: string) {
