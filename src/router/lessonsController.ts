@@ -48,9 +48,8 @@ export class LessonsController implements IController {
     });
 
     this.router.get("/statistics/:id", async (req, res) => {
-      const lessons = await this.lessonBl.mapReduce(req.params.id);
-      var x = 6;
-      res.send();
+      let result = await this.lessonBl.mapReduce(req.params.id);
+      res.send(result);
     });
 
     this.router.delete("/:id", async (req, res) => {

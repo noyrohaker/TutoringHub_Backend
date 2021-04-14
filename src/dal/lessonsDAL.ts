@@ -36,9 +36,8 @@ export class LessonsDAL {
     return await this.lessonDataAccess.filter({ subject: subject });
   }
 
-  async mapReduce(teacherId: String) {
-    const teacher: ITeacherModel = await this.teachersDataAccess.findById(teacherId);
-    return await this.lessonDataAccess.mapReduce(teacher);
+  async mapReduce(teacherId) {
+    return await this.lessonDataAccess.mapReduce(teacherId);
   }
 
   async delete(id: String) {

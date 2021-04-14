@@ -1,5 +1,7 @@
 import { Document, Model, ModelMapReduceOption, Types } from "mongoose";
 import { emit } from "process";
+import { Lesson } from "../models/lessons.model";
+import { Teacher } from "../models/teachers.model";
 
 export interface IBaseDataAccess { }
 
@@ -38,32 +40,21 @@ export class BaseDataAccess<T extends Document> implements IBaseDataAccess {
     return await this.model.find(filter);
   }
 
-  public async mapReduce(lessons: any) {
-    var query = {
-      _id: {
-        $in: lessons._doc.tutoringSubjects,
-      },
-    };
+  public async mapReduce(teacherId) {
 
-    const x: ModelMapReduceOption<any, any, any> = {
-      map: function () {
-        emit(this.classType, this.students);
-      },
-      reduce: function (keyCustId, students) {
-        return students.length;
-      },
-      query: query,
-      // out: { inline: 1 },
-      // out: { replace: "map_reduce" },
-      verbose: true,
+    let teacherData = await Teacher.findById(teacherId);
+    let o: any = {};
+    o.map = "function () {emit(this.classType, this.subject)}";
+    o.reduce = function (k, vals) {
+      return vals.length;
     };
-    await this.model.mapReduce(x, (err, res) => {
-      console.log(err);
-      console.log(res);
-    });
-    // return await this.model.mapReduce(x, (err, res) => {
-    //   debugger;
-    // });
+    o.out = { inline:1 };
+    o.query = {
+      _id: {
+        $in: teacherData.tutoringSubjects,
+      },
+    };
+    return this.model.mapReduce(o);
   }
 
   private toObjectId(_id: string): Types.ObjectId {

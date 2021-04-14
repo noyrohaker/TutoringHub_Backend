@@ -1,8 +1,12 @@
 import { ILesson } from "../models/lessons.model";
 import { LessonsDAL } from "../dal/lessonsDAL";
+import { ITeacherModel, ITeacher } from "../models/teachers.model";
+import { TeachersDAL } from "../dal/teachersDAL";
+import { TeachersBL } from "./teachersBL";
 
 export class LessonsBL {
   private lessonDataAccess: LessonsDAL;
+  teachersBL: TeachersBL;
 
   constructor() {
     this.lessonDataAccess = new LessonsDAL();
@@ -36,7 +40,7 @@ export class LessonsBL {
     await this.lessonDataAccess.delete(id);
   }
 
-  async mapReduce(teacher: String) {
-    await this.lessonDataAccess.mapReduce(teacher);
+  async mapReduce(teacherId?: string) {
+   return await this.lessonDataAccess.mapReduce(teacherId);
   }
 }
