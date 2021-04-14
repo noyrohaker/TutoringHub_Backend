@@ -1,4 +1,4 @@
-import { ILesson } from './lessons.model';
+import { ILesson } from "./lessons.model";
 import { Document, Schema, model, SchemaDefinition, Model } from "mongoose";
 
 export enum Gender {
@@ -34,14 +34,13 @@ export interface ITeacher extends Document {
   firebaseId?: string;
 }
 
-
 export type ITeacherSchema = ITeacher & SchemaDefinition;
-export interface ITeacherModel extends ITeacher { }
+export interface ITeacherModel extends ITeacher {}
 
 export const teacherSchema = new Schema<ITeacherSchema>(
   {
     name: String,
-    availability: String,
+    availability: Boolean,
     education: String,
     mail: String,
     gender: Number,
@@ -62,8 +61,4 @@ export const teacherSchema = new Schema<ITeacherSchema>(
   { versionKey: false }
 );
 
-export const Teacher: Model<ITeacherModel> = model<ITeacherModel>(
-  "Teacher",
-  teacherSchema,
-  "teachers"
-);
+export const Teacher: Model<ITeacherModel> = model<ITeacherModel>("Teacher", teacherSchema, "teachers");
