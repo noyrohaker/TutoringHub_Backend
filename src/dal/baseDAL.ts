@@ -42,7 +42,6 @@ export class BaseDataAccess<T extends Document> implements IBaseDataAccess {
 
   public async searchByParams(filter: any, subject: string) {
     return await this.model.find(filter);
-    // .find({ subject: { $regex: subject, $options: "$i" } });
   }
 
   public async mapReduce(teacherId) {
@@ -59,6 +58,14 @@ export class BaseDataAccess<T extends Document> implements IBaseDataAccess {
       },
     };
     return this.model.mapReduce(o);
+  }
+
+  public async groupBy(match: any, group: any, sort: any) {
+    return await this.model.aggregate([
+      { $match: match },
+      { $group: group },
+      { $sort: sort }
+    ]);
   }
 
   private toObjectId(_id: string): Types.ObjectId {

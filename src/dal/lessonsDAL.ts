@@ -19,7 +19,7 @@ export class LessonsDAL {
   }
 
   async create(lesson: ILesson) {
-    this.lessonDataAccess.create(<ILessonModel>lesson);
+    return await this.lessonDataAccess.create(<ILessonModel>lesson);
   }
 
   async findById(id: string) {
@@ -35,7 +35,7 @@ export class LessonsDAL {
   }
 
   async update(lesson: ILesson) {
-    this.lessonDataAccess.update(lesson);
+    return await this.lessonDataAccess.update(lesson);
   }
 
   async findBySubject(subject: String) {
@@ -80,5 +80,9 @@ export class LessonsDAL {
 
   async delete(id: String) {
     return await this.lessonDataAccess.delete(id);
+  }
+
+  async groupBy(match: any, group: any, sort: any) {
+    return await this.lessonDataAccess.groupBy(match, group, sort);
   }
 }

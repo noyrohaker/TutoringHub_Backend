@@ -49,7 +49,7 @@ export class LessonsBL {
   }
 
   async update(document: ILesson) {
-    await this.lessonDataAccess.update(document);
+    return await this.lessonDataAccess.update(document);
   }
 
   async delete(id: String) {
@@ -59,4 +59,8 @@ export class LessonsBL {
   async mapReduce(teacherId?: string) {
     return await this.lessonDataAccess.mapReduce(teacherId);
   }
+
+  async groupBy(match: any, group: any, sort: any) {
+    return await this.lessonDataAccess.groupBy(match, group, sort);
+   }
 }
