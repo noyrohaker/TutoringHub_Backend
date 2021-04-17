@@ -1,5 +1,12 @@
 import { BaseDataAccess } from "./baseDAL";
-import { ITeacherModel, Teacher, ITeacher, Area, Gender, Score } from "../models/teachers.model";
+import {
+  ITeacherModel,
+  Teacher,
+  ITeacher,
+  Area,
+  Gender,
+  Score,
+} from "../models/teachers.model";
 
 export class TeachersDAL {
   private teacherDataAccess: BaseDataAccess<ITeacherModel>;
@@ -13,7 +20,7 @@ export class TeachersDAL {
   }
 
   async findByFieldValue(field: string, value: string) {
-    return await this.teacherDataAccess.filter({[field]: value});
+    return await this.teacherDataAccess.filter({ [field]: value });
   }
 
   async findById(id: String) {
@@ -36,7 +43,6 @@ export class TeachersDAL {
     return await this.teacherDataAccess.filter({ name: name });
   }
 
-
   async searchByParams(
     name: string,
     gender: Gender,
@@ -45,10 +51,10 @@ export class TeachersDAL {
   ) {
     var query = {} as Document;
     if (score !== NaN && score != null) {
-      query["score"] = {  $gte: gender.valueOf() };
+      query["score"] = { $gte: score };
     }
     if (gender != NaN && gender != null) {
-      query["gender"] = { $gte: gender.valueOf() };
+      query["gender"] = gender;
     }
     if (name) {
       query["name"] = { $regex: name, $options: "$i" };
@@ -59,5 +65,4 @@ export class TeachersDAL {
 
     return await this.teacherDataAccess.searchByParams(query, name);
   }
-
 }
