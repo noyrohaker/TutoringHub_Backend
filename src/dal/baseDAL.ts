@@ -57,6 +57,14 @@ export class BaseDataAccess<T extends Document> implements IBaseDataAccess {
     return this.model.mapReduce(o);
   }
 
+  public async groupBy(match: any, group: any, sort: any) {
+    return await this.model.aggregate([
+      { $match: match },
+      { $group: group },
+      { $sort: sort }
+    ]);
+  }
+
   private toObjectId(_id: string): Types.ObjectId {
     return Types.ObjectId.createFromHexString(_id);
   }

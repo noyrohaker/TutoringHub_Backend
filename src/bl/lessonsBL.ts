@@ -43,4 +43,8 @@ export class LessonsBL {
   async mapReduce(teacherId?: string) {
    return await this.lessonDataAccess.mapReduce(teacherId);
   }
+
+  async groupBy(match: any, group: any, sort: any) {
+    return await this.lessonDataAccess.groupBy(match, group, sort);
+   }
 }
