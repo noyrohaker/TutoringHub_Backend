@@ -35,7 +35,7 @@ export class LessonsDAL {
   }
 
   async update(lesson: ILesson) {
-    this.lessonDataAccess.update(lesson);
+    return await this.lessonDataAccess.update(lesson);
   }
 
   async findBySubject(subject: String) {

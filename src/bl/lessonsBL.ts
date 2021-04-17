@@ -49,7 +49,7 @@ export class LessonsBL {
   }
 
   async update(document: ILesson) {
-    await this.lessonDataAccess.update(document);
+    return await this.lessonDataAccess.update(document);
   }
 
   async delete(id: String) {

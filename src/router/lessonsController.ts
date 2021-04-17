@@ -25,21 +25,23 @@ export class LessonsController implements IController {
 
     this.router.post("/", async (req, res) => {
       const lesson: ILesson = req.body;
-      const createdLesson = await this.lessonBl.create(lesson);
       if(lesson.teacherId) {
-        const teacherClassOwner = await this.teacherBL.findById(lesson.teacherId);
-        if(teacherClassOwner) {
-          if(teacherClassOwner.tutoringSubjects) {
-            let updatedTutoringSubjects = teacherClassOwner.tutoringSubjects;
-            updatedTutoringSubjects.push(createdLesson._id);
-            teacherClassOwner.tutoringSubjects = updatedTutoringSubjects;
-          } else {
-            teacherClassOwner.tutoringSubjects = [createdLesson._id];
+        const createdLesson = await this.lessonBl.create(lesson);
+        if(createdLesson) {
+          const teacherClassOwner = await this.teacherBL.findById(lesson.teacherId);
+          if(teacherClassOwner) {
+            if(teacherClassOwner.tutoringSubjects) {
+              let updatedTutoringSubjects = teacherClassOwner.tutoringSubjects;
+              updatedTutoringSubjects.push(createdLesson._id);
+              teacherClassOwner.tutoringSubjects = updatedTutoringSubjects;
+            } else {
+              teacherClassOwner.tutoringSubjects = [createdLesson._id];
+            }
+            this.teacherBL.update(teacherClassOwner);
+            res.status(200).send(createdLesson);
           }
-          this.teacherBL.update(teacherClassOwner);
         }
       }
-      res.sendStatus(200);
     });
 
     this.router.post("/search", async (req, res) => {
@@ -71,8 +73,8 @@ export class LessonsController implements IController {
 
     this.router.put("/", async (req, res) => {
       const lesson: ILesson = req.body;
-      this.lessonBl.update(lesson);
-      res.sendStatus(200);
+      await this.lessonBl.update(lesson);
+      res.status(200).send(lesson);
     });
 
     this.router.get("/statistics/:id", async (req, res) => {
