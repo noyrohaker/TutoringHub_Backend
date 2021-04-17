@@ -51,7 +51,7 @@ export class LessonsDAL {
   ) {
     var query = {} as Document;
 
-    if (classType !== NaN) {
+    if (classType !== NaN && classType !== null) {
       query["classType"] = classType;
     }
 
