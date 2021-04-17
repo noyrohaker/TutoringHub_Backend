@@ -91,8 +91,17 @@ export class LessonsController implements IController {
     });
 
     this.router.delete("/:id", async (req, res) => {
-      this.lessonBl.delete(req.params.id);
-      res.sendStatus(200);
+      const lessonToDelete = await this.lessonBl.findById(req.params.id);
+      if(lessonToDelete) {
+        const teacherClassOwner = await this.teacherBL.findById(lessonToDelete.teacherId);
+        if(teacherClassOwner && teacherClassOwner.tutoringSubjects) {
+          let updatedTutoringSubjects = teacherClassOwner.tutoringSubjects.filter((tutoringSubject) => tutoringSubject.toString() !== lessonToDelete._id.toString());
+          teacherClassOwner.tutoringSubjects = updatedTutoringSubjects;
+          await this.teacherBL.update(teacherClassOwner);
+        }
+        await this.lessonBl.delete(req.params.id);
+        res.sendStatus(200);
+      }
     });
   }
 }
