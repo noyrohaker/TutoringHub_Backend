@@ -42,10 +42,33 @@ export class LessonsController implements IController {
       res.sendStatus(200);
     });
 
+    this.router.post("/search", async (req, res) => {
+      const lesson: ILesson = req.body;
+      const lessons = await this.lessonBl.searchByParams(
+        lesson.subject,
+        lesson.classType,
+        lesson.minAgeRange,
+        lesson.maxAgeRange,
+        lesson.city
+      );
+      res.send(lessons);
+    });
+
     this.router.get("/subject", async (req, res) => {
       const lessons = await this.lessonBl.findBySubject(req.params.subject);
       res.send(lessons);
     });
+
+    // this.router.get("/search", async (req, res) => {
+    //   const lessons = await this.lessonBl.searchByParams(
+    //     req.params.subject,
+    //     parseInt(req.params.classType),
+    //     parseInt(req.params.minAgeRange),
+    //     parseInt(req.params.maxAgeRange),
+    //     req.params.city
+    //   );
+    //   res.send(lessons);
+    // });
 
     this.router.get("/teacherId/:teacherId", async (req, res) => {
       const lessons = await this.lessonBl.findByTeacherId(req.params.teacherId);

@@ -3,7 +3,7 @@ import { emit } from "process";
 import { Lesson } from "../models/lessons.model";
 import { Teacher } from "../models/teachers.model";
 
-export interface IBaseDataAccess { }
+export interface IBaseDataAccess {}
 
 export class BaseDataAccess<T extends Document> implements IBaseDataAccess {
   private model: Model<T>;
@@ -40,15 +40,19 @@ export class BaseDataAccess<T extends Document> implements IBaseDataAccess {
     return await this.model.find(filter);
   }
 
-  public async mapReduce(teacherId) {
+  public async searchByParams(filter: any, subject: string) {
+    return await this.model.find(filter);
+    // .find({ subject: { $regex: subject, $options: "$i" } });
+  }
 
+  public async mapReduce(teacherId) {
     let teacherData = await Teacher.findById(teacherId);
     let o: any = {};
     o.map = "function () {emit(this.classType, this.subject)}";
     o.reduce = function (k, vals) {
       return vals.length;
     };
-    o.out = { inline:1 };
+    o.out = { inline: 1 };
     o.query = {
       _id: {
         $in: teacherData.tutoringSubjects,
