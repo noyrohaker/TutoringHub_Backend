@@ -1,4 +1,4 @@
-import { ILesson } from "../models/lessons.model";
+import { ILesson, ClassType } from "../models/lessons.model";
 import { LessonsDAL } from "../dal/lessonsDAL";
 import { ITeacherModel, ITeacher } from "../models/teachers.model";
 import { TeachersDAL } from "../dal/teachersDAL";
@@ -28,6 +28,22 @@ export class LessonsBL {
     return await this.lessonDataAccess.findBySubject(subject);
   }
 
+  async searchByParams(
+    subject: string,
+    classType: ClassType,
+    minAgeRange: number,
+    maxAgeRange: number,
+    city: string
+  ) {
+    return await this.lessonDataAccess.searchByParams(
+      subject,
+      classType,
+      minAgeRange,
+      maxAgeRange,
+      city
+    );
+  }
+
   async findAll(): Promise<Array<ILesson>> {
     return await this.lessonDataAccess.findAll();
   }
@@ -41,6 +57,6 @@ export class LessonsBL {
   }
 
   async mapReduce(teacherId?: string) {
-   return await this.lessonDataAccess.mapReduce(teacherId);
+    return await this.lessonDataAccess.mapReduce(teacherId);
   }
 }
