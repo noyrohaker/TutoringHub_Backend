@@ -56,6 +56,7 @@ export class TeachersDAL {
     if (education) {
       query["education"] = { $regex: education, $options: "$i" };
     }
+    query["availability"] = { "$in": ["true",true] }
 
     return await this.teacherDataAccess.searchByParams(query, name);
   }
