@@ -1,7 +1,7 @@
 import { Document, Schema, model, SchemaDefinition, Model } from "mongoose";
 
 export enum ClassType {
-  Frontal = 0,
+  Zoom = 0,
   Teachers_Home = 1,
   Students_Home = 2,
 }

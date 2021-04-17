@@ -1,7 +1,13 @@
 import { BaseDataAccess } from "./baseDAL";
-import { ILessonModel, Lesson, ILesson } from "../models/lessons.model";
+import {
+  ILessonModel,
+  Lesson,
+  ILesson,
+  ClassType,
+} from "../models/lessons.model";
 import { TeachersDAL } from "./teachersDAL";
 import { ITeacherModel } from "../models/teachers.model";
+import { Document } from "mongoose";
 
 export class LessonsDAL {
   private lessonDataAccess: BaseDataAccess<ILessonModel>;
@@ -34,6 +40,38 @@ export class LessonsDAL {
 
   async findBySubject(subject: String) {
     return await this.lessonDataAccess.filter({ subject: subject });
+  }
+
+  async searchByParams(
+    subject: string,
+    classType: ClassType,
+    minAgeRange: Number,
+    maxAgeRange: Number,
+    city: string
+  ) {
+    var query = {} as Document;
+
+    if (classType !== NaN) {
+      query["classType"] = classType;
+    }
+
+    if (city) {
+      query["city"] = city;
+    }
+
+    if (minAgeRange !== NaN) {
+      query["minAgeRange"] = { $gte: minAgeRange };
+    }
+
+    if (maxAgeRange !== NaN) {
+      query["maxAgeRange"] = { $lte: maxAgeRange };
+    }
+
+    if (subject) {
+      query["subject"] = { $regex: subject, $options: "$i" };
+    }
+
+    return await this.lessonDataAccess.searchByParams(query, subject);
   }
 
   async mapReduce(teacherId) {
