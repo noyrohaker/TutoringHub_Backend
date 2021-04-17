@@ -1,4 +1,4 @@
-import { ITeacher } from "../models/teachers.model";
+import { ITeacher, Score, Gender, Area } from "../models/teachers.model";
 import { TeachersDAL } from "../dal/teachersDAL";
 
 export class TeachersBL {
@@ -10,6 +10,20 @@ export class TeachersBL {
 
   async findByLessonId(field: string, value: string) {
     return await this.teachersDataAccess.findByFieldValue(field, value);
+  }
+
+  async searchByParams(
+    name: string,
+    gender: Gender,
+    education: String,
+    score: Score
+  ) {
+    return await this.teachersDataAccess.searchByParams(
+      name,
+      gender,
+      education,
+      score
+    );
   }
 
   async create(document: ITeacher) {

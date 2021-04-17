@@ -26,13 +26,19 @@ export class TeachersController implements IController {
       res.send(createdTeacher).status(200);
     });
 
-    // this.router.get("/name", async (req, res) => {
-    //   const teachers = await this.teacherBL.findByName(req.params.name);
-    //   res.send(teachers);
-    // });
-
     this.router.get("/:id", async (req, res) => {
       const teachers = await this.teacherBL.findById(req.params.id);
+      res.send(teachers);
+    });
+
+    this.router.post("/search", async (req, res) => {
+      const teacher: ITeacher = req.body;
+      const teachers = await this.teacherBL.searchByParams(
+        teacher.name,
+        teacher.gender,
+        teacher.education,
+        teacher.score
+      );
       res.send(teachers);
     });
 

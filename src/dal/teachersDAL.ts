@@ -1,5 +1,5 @@
 import { BaseDataAccess } from "./baseDAL";
-import { ITeacherModel, Teacher, ITeacher } from "../models/teachers.model";
+import { ITeacherModel, Teacher, ITeacher, Area, Gender, Score } from "../models/teachers.model";
 
 export class TeachersDAL {
   private teacherDataAccess: BaseDataAccess<ITeacherModel>;
@@ -35,4 +35,29 @@ export class TeachersDAL {
   async findByName(name: String) {
     return await this.teacherDataAccess.filter({ name: name });
   }
+
+
+  async searchByParams(
+    name: string,
+    gender: Gender,
+    education: String,
+    score: Score
+  ) {
+    var query = {} as Document;
+    if (score !== NaN && score != null) {
+      query["score"] = {  $gte: gender.valueOf() };
+    }
+    if (gender != NaN) {
+      query["gender"] = { $gte: gender.valueOf() };
+    }
+    if (name) {
+      query["name"] = { $regex: name, $options: "$i" };
+    }
+    if (education) {
+      query["education"] = { $regex: education, $options: "$i" };
+    }
+
+    return await this.teacherDataAccess.searchByParams(query, name);
+  }
+
 }
