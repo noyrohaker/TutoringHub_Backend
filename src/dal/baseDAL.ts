@@ -42,7 +42,6 @@ export class BaseDataAccess<T extends Document> implements IBaseDataAccess {
 
   public async searchByParams(filter: any, subject: string) {
     return await this.model.find(filter);
-    // .find({ subject: { $regex: subject, $options: "$i" } });
   }
 
   public async mapReduce(teacherId) {

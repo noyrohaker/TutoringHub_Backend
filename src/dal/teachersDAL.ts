@@ -47,7 +47,7 @@ export class TeachersDAL {
     if (score !== NaN && score != null) {
       query["score"] = {  $gte: gender.valueOf() };
     }
-    if (gender != NaN) {
+    if (gender != NaN && gender != null) {
       query["gender"] = { $gte: gender.valueOf() };
     }
     if (name) {
